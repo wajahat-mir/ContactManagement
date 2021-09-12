@@ -6,6 +6,8 @@
 
   <ItemGroup>
     <ProjectReference Include="..\ContactManagement.Bll.Core\ContactManagement.Bll.Core.csproj" />
+    <ProjectReference Include="..\ContactManagement.Bll\ContactManagement.Bll.csproj" />
+    <ProjectReference Include="..\ContactManagement.Dal\ContactManagement.Dal.csproj" />
   </ItemGroup>
 
 </Project>
