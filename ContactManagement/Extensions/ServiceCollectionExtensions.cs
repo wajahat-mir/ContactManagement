@@ -1,6 +1,9 @@
 ﻿using ContactManagement.Bll.Core.Interfaces;
 using ContactManagement.Bll.Services;
+using ContactManagement.Dal.Adaptors;
+using ContactManagement.Dal.Interfaces;
 using ContactManagement.Dal.Providers;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Polly;
 using Polly.Extensions.Http;
@@ -29,6 +32,18 @@ namespace ContactManagement.Extensions
         {
             services.AddScoped<IContactProvider, ContactProvider>();
             services.AddScoped<IContactService, ContactService>();
+            return services;
+        }
+
+        public static IServiceCollection AddHttpClients(this IServiceCollection services, IConfiguration configuration)
+        {
+            services.AddHttpClient<IContactApiClient, ContactApiClient>(c =>
+            {
+                c.BaseAddress = new Uri(configuration["Contact:ApiUrl"]);
+                c.DefaultRequestHeaders.Add("api-key", configuration["Contact:ApiKey"]);
+                c.Timeout = _timeout;
+            }).AddPolicyHandler(RetryPolicy);
+
             return services;
         }
     }
