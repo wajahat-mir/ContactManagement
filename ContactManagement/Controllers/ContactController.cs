@@ -1,4 +1,5 @@
-﻿using ContactManagement.Models;
+﻿using ContactManagement.Bll.Core.Interfaces;
+using ContactManagement.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using System;
@@ -12,15 +13,18 @@ namespace ContactManagement.Controllers
     public class ContactController : Controller
     {
         private readonly ILogger<ContactController> _logger;
+        private readonly IContactService _contactService;
 
-        public ContactController(ILogger<ContactController> logger)
+        public ContactController(ILogger<ContactController> logger, IContactService contactService)
         {
             _logger = logger;
+            _contactService = contactService;
         }
 
-        public IActionResult Index()
+        public async Task<IActionResult> Index()
         {
-            return View();
+            var contacts = await _contactService.GetContactsAsync();
+            return View(contacts);
         }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
