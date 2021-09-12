@@ -1,16 +1,9 @@
-using ContactManagement.Bll.Core.Interfaces;
-using ContactManagement.Bll.Services;
-using ContactManagement.Dal.Providers;
+using ContactManagement.Extensions;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace ContactManagement
 {
@@ -26,8 +19,7 @@ namespace ContactManagement
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddScoped<IContactProvider, ContactProvider>();
-            services.AddScoped<IContactService, ContactService>();
+            services.AddDependencyInjections();
             services.AddControllersWithViews();
         }
 
