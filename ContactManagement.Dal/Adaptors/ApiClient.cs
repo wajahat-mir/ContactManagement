@@ -87,6 +87,18 @@ namespace ContactManagement.Dal.Adaptors
             return response;
         }
 
+        private async Task<HttpResponseMessage> PostAsync(string url, dynamic body, IEnumerable<KeyValuePair<string, object>> headers)
+        {
+            string json = ConvertToJsonString(body);
+            var content = new StringContent(json, Encoding.UTF8, "application/json");
+            if (headers == null || !headers.Any())
+            {
+                return await HttpClient.PostAsync(url, content);
+            }
+
+            return await HttpClient.SendAsync(url, HttpMethod.Post, content, headers);
+        }
+
         private string CreateUrl(string endpoint, IEnumerable<KeyValuePair<string, object>> parameters = null)
         {
             if (parameters == null || !parameters.Any())

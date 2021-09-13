@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using ContactManagement.Bll.Core.Interfaces;
+using ContactManagement.Bll.Core.Models.Contacts;
 using ContactManagement.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
@@ -29,6 +30,21 @@ namespace ContactManagement.Controllers
             var contacts = await _contactService.GetContactsAsync();
             var contactsView = _mapper.Map<IEnumerable<ContactViewModel>>(contacts);
             return View(contactsView);
+        }
+
+        public IActionResult Create()
+        {
+            return View(new ContactViewModel() 
+            { 
+                lastDateContacted = DateTime.Now
+            });
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Save(ContactModel contact)
+        {
+            var result = await _contactService.CreateContactAsync(contact);
+            return RedirectToAction("Index");
         }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]

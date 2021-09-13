@@ -1,0 +1,46 @@
+﻿@model ContactManagement.Models.ContactViewModel
+
+<form asp-controller="Contact" asp-action="Save" method="post">
+    <div class="row">
+        <div class="col-xs-4">
+            Name  <input asp-for="name" />
+        </div>
+        <div class="col-xs-4">
+            Address  <input asp-for="address" />
+        </div>
+        <div class="col-xs-4">
+            Last Date Created  <input asp-for="lastDateContacted" />
+        </div>
+    </div>
+    <br />
+    <div class="row">
+        <div class="col-xs-4">
+            Job Title  <input asp-for="title" />
+        </div>
+        <div class="col-xs-4">
+            Phone  <input asp-for="phone" />
+        </div>
+    </div>
+    <br />
+    <div class="row">
+        <div class="col-xs-4">
+            Company  <input asp-for="company" />
+        </div>
+        <div class="col-xs-4">
+            Email  <input asp-for="email" />
+        </div>
+        <div class="col-xs-4">
+            Comments  <input asp-for="comments" />
+        </div>
+    </div>
+    <br />
+    <div class="row">
+        <div class="col-xs-3">
+            <button class="btn btn-primary" type="submit">Save</button>
+        </div>
+        &nbsp;
+        <div class="col-xs-3">
+            <a class="btn btn-primary" asp-controller="Contact" asp-action="Index">Cancel</a>
+        </div>
+    </div>
+</form>

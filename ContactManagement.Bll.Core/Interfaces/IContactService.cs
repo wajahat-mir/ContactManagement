@@ -10,5 +10,6 @@ namespace ContactManagement.Bll.Core.Interfaces
     public interface IContactService
     {
         Task<IEnumerable<ContactModel>> GetContactsAsync();
+        Task<bool> CreateContactAsync(ContactModel contact);
     }
 }

@@ -23,5 +23,19 @@ namespace ContactManagement.Dal.Providers
             string url = $"v1/contact";
             return await _contactApiClient.GetAsync<IEnumerable<ContactModel>>(url);
         }
+
+        public async Task<bool> CreateContactAsync(ContactModel contact)
+        {
+            try
+            {
+                string url = $"v1/contact";
+                await _contactApiClient.PostAsync<ContactModel>(url, contact);
+                return true;
+            }
+            catch(Exception ex)
+            {
+                return false;
+            }
+        }
     }
 }
