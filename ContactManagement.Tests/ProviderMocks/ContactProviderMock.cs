@@ -18,5 +18,55 @@ namespace ContactManagement.Tests.ProviderMocks
             mock.Setup(x => x.GetContactsAsync()).ReturnsAsync(contacts);
             return mock;
         }
+
+        public static Mock<IContactProvider> UpdateContact_Failure()
+        {
+            var mock = new Mock<IContactProvider>();
+            mock.Setup(x => x.UpdateContactAsync(It.IsAny<ContactModel>())).ReturnsAsync(false);
+            return mock;
+        }
+
+
+        public static Mock<IContactProvider> UpdateContact_Success()
+        {
+            var mock = new Mock<IContactProvider>();
+            mock.Setup(x => x.UpdateContactAsync(It.IsAny<ContactModel>())).ReturnsAsync(true);
+            return mock;
+        }
+
+        public static Mock<IContactProvider> CreateContact_Failure()
+        {
+            var mock = new Mock<IContactProvider>();
+            mock.Setup(x => x.CreateContactAsync(It.IsAny<ContactModel>())).ReturnsAsync(false);
+            return mock;
+        }
+
+
+        public static Mock<IContactProvider> CreateContact_Success()
+        {
+            var mock = new Mock<IContactProvider>();
+            mock.Setup(x => x.CreateContactAsync(It.IsAny<ContactModel>())).ReturnsAsync(true);
+            return mock;
+        }
+
+        public static Mock<IContactProvider> GetById_DoesntExist()
+        {
+            var mock = new Mock<IContactProvider>();
+            ContactModel contact = null;
+            mock.Setup(x => x.GetContactById(It.IsAny<int>())).ReturnsAsync(contact);
+            return mock;
+        }
+
+
+        public static Mock<IContactProvider> GetById_Exists()
+        {
+            var mock = new Mock<IContactProvider>();
+            ContactModel contact = new ContactModel() { 
+                id = 1,
+                name = "test"
+            };
+            mock.Setup(x => x.GetContactById(It.IsAny<int>())).ReturnsAsync(contact);
+            return mock;
+        }
     }
 }
