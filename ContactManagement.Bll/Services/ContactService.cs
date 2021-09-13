@@ -21,5 +21,9 @@ namespace ContactManagement.Bll.Services
         {
             return await _contactProvider.GetContactsAsync();
         }
+        public async Task<bool> CreateContactAsync(ContactModel contact)
+        {
+            return await _contactProvider.CreateContactAsync(contact);
+        }
     }
 }

@@ -12,8 +12,7 @@ namespace ContactManagement.Mappings
     {
         public ContactViewMappings()
         {
-            CreateMap<ContactModel, ContactViewModel>()
-                .ForMember(dest => dest.lastDateContacted, opt => opt.MapFrom(source => source.lastDateContacted.ToString("MMMM-d-yyyy")));
+            CreateMap<ContactModel, ContactViewModel>();
         }
     }
 }
