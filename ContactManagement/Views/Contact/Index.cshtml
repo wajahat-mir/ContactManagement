@@ -4,6 +4,21 @@
     ViewData["Title"] = "Contacts";
 }
 
+@if (TempData.ContainsKey("CreateFailure") && Convert.ToBoolean(TempData["CreateFailure"]))
+{
+<div class="alert alert-danger" role="alert">
+    The record failed to be created.
+</div>
+}
+
+
+@if (TempData.ContainsKey("UpdateFailure") && Convert.ToBoolean(TempData["UpdateFailure"]))
+{
+<div class="alert alert-danger" role="alert">
+    The record failed to be updated.
+</div>
+}
+
 <a class="btn btn-primary" asp-controller="Contact" asp-action="Create">Create New Contact</a>
 
 @if (Model != null && Model.Count() > 0)
@@ -13,7 +28,7 @@
             <tr>
                 <th>
                     @Html.DisplayNameFor(model => model.name)
-                    <br/>
+                    <br />
                     @Html.DisplayNameFor(model => model.title)
                 </th>
                 <th>
@@ -36,9 +51,11 @@
         <tbody>
             @foreach (var item in Model)
             {
-                <tr>
+                <tr onclick="location.href='@Url.Action("Edit", "Contact", new { id = item.id})'">
                     <td>
                         @Html.DisplayFor(modelItem => item.name)
+                        <br />
+                        @Html.DisplayFor(modelItem => item.title)
                     </td>
                     <td>
                         @Html.DisplayFor(modelItem => item.company)

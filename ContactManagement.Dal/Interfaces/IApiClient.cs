@@ -10,6 +10,7 @@ namespace ContactManagement.Dal.Interfaces
     {
         Task<T> GetAsync<T>(string endpoint, IEnumerable<KeyValuePair<string, object>> parameters = null, IEnumerable<KeyValuePair<string, object>> headers = null);
         Task<T> PostAsync<T>(string endpoint, dynamic body, IEnumerable<KeyValuePair<string, object>> parameters = null, IEnumerable<KeyValuePair<string, object>> headers = null);
+        Task<T> PutAsync<T>(string endpoint, dynamic body, IEnumerable<KeyValuePair<string, object>> parameters = null, IEnumerable<KeyValuePair<string, object>> headers = null);
     }
 
     public interface IContactApiClient : IApiClient

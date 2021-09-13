@@ -74,6 +74,15 @@ namespace ContactManagement.Dal.Adaptors
             return value;
         }
 
+        public async Task<T> PutAsync<T>(string endpoint, dynamic body, IEnumerable<KeyValuePair<string, object>> parameters = null, IEnumerable<KeyValuePair<string, object>> headers = null)
+        {
+            endpoint = CreateUrl(endpoint, parameters);
+            var httpResponse = await PutAsync(endpoint, body, headers);
+
+            return await DeserializeContent<T>(httpResponse);
+
+        }
+
         private async Task<HttpResponseMessage> GetAsync(string url, IEnumerable<KeyValuePair<string, object>> headers)
         {
             HttpResponseMessage response;
@@ -97,6 +106,18 @@ namespace ContactManagement.Dal.Adaptors
             }
 
             return await HttpClient.SendAsync(url, HttpMethod.Post, content, headers);
+        }
+
+        private async Task<HttpResponseMessage> PutAsync(string url, dynamic body, IEnumerable<KeyValuePair<string, object>> headers)
+        {
+            string json = ConvertToJsonString(body);
+            var content = new StringContent(json, Encoding.UTF8, "application/json");
+            if (headers == null || !headers.Any())
+            {
+                return await HttpClient.PutAsync(url, content);
+            }
+
+            return await HttpClient.SendAsync(url, HttpMethod.Put, content, headers);
         }
 
         private string CreateUrl(string endpoint, IEnumerable<KeyValuePair<string, object>> parameters = null)

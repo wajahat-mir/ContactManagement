@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace ContactManagement.Bll.Services
 {
-    public class ContactService: IContactService
+    public class ContactService : IContactService
     {
         private readonly IContactProvider _contactProvider;
 
@@ -24,6 +24,16 @@ namespace ContactManagement.Bll.Services
         public async Task<bool> CreateContactAsync(ContactModel contact)
         {
             return await _contactProvider.CreateContactAsync(contact);
+        }
+
+        public async Task<ContactModel> GetContactById(int id)
+        {
+            return await _contactProvider.GetContactById(id);
+        }
+
+        public async Task<bool> UpdateContactAsync(ContactModel contact)
+        {
+            return await _contactProvider.UpdateContactAsync(contact);
         }
     }
 }
