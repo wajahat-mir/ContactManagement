@@ -32,7 +32,27 @@ namespace ContactManagement.Dal.Providers
                 await _contactApiClient.PostAsync<ContactModel>(url, contact);
                 return true;
             }
-            catch(Exception ex)
+            catch
+            {
+                return false;
+            }
+        }
+
+        public async Task<ContactModel> GetContactById(int id)
+        {
+            string url = $"v1/contact/{id}";
+            return await _contactApiClient.GetAsync<ContactModel>(url);
+        }
+
+        public async Task<bool> UpdateContactAsync(ContactModel contact)
+        {
+            try
+            {
+                string url = $"v1/contact/{contact.id}";
+                await _contactApiClient.PutAsync<ContactModel>(url, contact);
+                return true;
+            }
+            catch
             {
                 return false;
             }

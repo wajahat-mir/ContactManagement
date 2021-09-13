@@ -11,5 +11,7 @@ namespace ContactManagement.Bll.Core.Interfaces
     {
         Task<IEnumerable<ContactModel>> GetContactsAsync();
         Task<bool> CreateContactAsync(ContactModel contact);
+        Task<ContactModel> GetContactById(int id);
+        Task<bool> UpdateContactAsync(ContactModel contact);
     }
 }

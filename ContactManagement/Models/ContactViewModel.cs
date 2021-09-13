@@ -9,8 +9,8 @@ namespace ContactManagement.Models
     public class ContactViewModel
     {
         public int id { get; set; }
-        [Required]
         [Display(Name = "Name")]
+        [Required]
         public string name { get; set; }
         [Required]
         [Display(Name = "Title")]

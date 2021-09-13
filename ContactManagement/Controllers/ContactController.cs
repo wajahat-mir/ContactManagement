@@ -40,10 +40,38 @@ namespace ContactManagement.Controllers
             });
         }
 
-        [HttpPost]
-        public async Task<IActionResult> Save(ContactModel contact)
+        public async Task<IActionResult> Edit(int id)
         {
-            var result = await _contactService.CreateContactAsync(contact);
+            var contact = await _contactService.GetContactById(id);
+            var contactsView = _mapper.Map<ContactViewModel>(contact);
+            return View(contactsView);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Save(ContactViewModel contact)
+        {
+            var result = false;
+            if (ModelState.IsValid)
+            {
+                var data = _mapper.Map<ContactModel>(contact);
+                result = await _contactService.CreateContactAsync(data);
+            }
+            if (!result)
+                TempData.Add("CreateFailure", true);
+            return RedirectToAction("Index");
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Update(ContactViewModel contact)
+        {
+            var result = false;
+            if (ModelState.IsValid)
+            {
+                var data = _mapper.Map<ContactModel>(contact);
+                result = await _contactService.UpdateContactAsync(data);
+            }
+            if (!result)
+                TempData.Add("UpdateFailure", true);
             return RedirectToAction("Index");
         }
 

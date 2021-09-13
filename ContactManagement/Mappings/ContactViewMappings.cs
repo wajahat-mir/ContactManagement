@@ -13,6 +13,7 @@ namespace ContactManagement.Mappings
         public ContactViewMappings()
         {
             CreateMap<ContactModel, ContactViewModel>();
+            CreateMap<ContactViewModel, ContactModel>();
         }
     }
 }
